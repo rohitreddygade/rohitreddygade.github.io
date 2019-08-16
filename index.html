@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Include the plugin //-->
+	<script src="https://kite.trade/publisher.js?v=3"></script>
+</head>
+<body>
+	 <!-- A Kite button will be generated inside this container //-->
+<p id="default-button"> </p>
+
+<!-- The basket will be linked to this element's onClick //-->
+<button id="custom-button">Buy the basket</button>
+
+
+
+<script>
+// Only run your custom code once KiteConnect has fully initialised.
+// Use KiteConnect.ready() to achieve this.
+KiteConnect.ready(function() {
+    // Initialize a new Kite instance.
+    // You can initialize multiple instances if you need.
+    var kite = new KiteConnect("0qm1zfzu54w9q4h8");
+
+    // Add a stock to the basket
+    kite.add({
+        "exchange": "NSE",
+        "tradingsymbol": "INFY",
+        "quantity": 5,
+        "transaction_type": "BUY",
+        "order_type": "MARKET"
+    });
+
+    // Add another stock
+    kite.add({
+        "exchange": "NSE",
+        "tradingsymbol": "SBIN",
+        "quantity": 1,
+        "order_type": "LIMIT",
+        "transaction_type": "SELL",
+        "price": 105
+    });
+
+    // Add a Bracket Order
+    kite.add({
+        "tradingsymbol": "RELIANCE",
+        "exchange": "NSE",
+        "transaction_type": "BUY",
+        "order_type": "LIMIT",
+        "product": "MIS",
+        "price": 915.15,
+        "quantity": 1,
+        "variety": "bo",
+        "stoploss": 5,
+        "squareoff": 7,
+        "trailing_stoploss": 1.5,
+        "readonly": true
+    });
+
+    // Register an (optional) callback.
+    kite.finished(function(status, request_token) {
+        alert("Finished. Status is " + status);
+    });
+
+    // Render the in-built button inside a given target
+    kite.renderButton("#default-button");
+
+    // OR, link the basket to any existing element you want
+    kite.link("#custom-button");
+});
+</script>
+
+</body>
+</html>
